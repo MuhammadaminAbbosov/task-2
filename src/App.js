@@ -19,7 +19,8 @@ function App() {
   
   console.log(data)
   return (
-    <Wrapper backColor = {data}>
+    <Wrapper backColor={data}>
+      <h1>{ data }</h1>
     </Wrapper>
   );
 }
