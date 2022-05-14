@@ -1,25 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import axios from "axios";
+import { useEffect, useState } from "react";
+import styled from "styled-components";
 
 function App() {
+  const [data, setData] = useState("white")
+  
+  useEffect(() => {
+    axios.get("https://54.uz/rang.php")
+      .then((res) => {
+        if (res.data.status === "qora") setData("black")
+        else if(res.data.status === "oq") setData("white")
+        else if(res.data.status === "yashil") setData("green")
+        else if(res.data.status === "qizil") setData("red")
+        else if(res.data.status === "ko'k") setData("blue")
+        else if(res.data.status === "sariq") setData("yellow")
+      })
+  }, [])
+  
+  console.log(data)
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Wrapper backColor = {data}>
+    </Wrapper>
   );
 }
 
 export default App;
+
+const Wrapper = styled.div`
+  height: 100vh;
+  width: 100vw;
+  background-color: ${({backColor})=> backColor};
+`
